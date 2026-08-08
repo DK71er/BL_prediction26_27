@@ -31,4 +31,16 @@ d2_files = make_file_paths(2)
 d1_all = concat_csvs(d1_files)
 d2_all = concat_csvs(d2_files)
 
-print(d1_all.head())
+keep_cols = ['HomeTeam', 'AwayTeam', 'Div', 'season', 'Date', 'FTR', 'FTHG', 'FTAG', 'HTHG', 'HTAG', 'HTR', 'HS', 'AS', 'HST', 'AST', 'HC', 'AC', 'HF', 'AF', 'HY', 'AY', 'HR', 'AR' ]
+
+
+d1_all_filtered = d1_all[keep_cols]
+d2_all_filtered = d2_all[keep_cols]
+
+d1_all_filtered = d1_all_filtered.dropna(subset=["HS"]) #filter the one game with NaNs
+
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+
+d1_all_filtered.to_csv(PROCESSED_DIR / "d1_clean.csv", index=False)
+d2_all_filtered.to_csv(PROCESSED_DIR / "d2_clean.csv", index=False)
