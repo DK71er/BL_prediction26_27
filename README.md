@@ -2,7 +2,7 @@
 ML-Modell zur Vorhersage der Bundesliga-Saison 26/27
 
 ## Status
-Working on getting data cleaned up.
+Arbeite an Aufbereitung der Daten.
 
 ### To-Do: Feature Engineering
 
