@@ -17,7 +17,7 @@ def concat_csvs(d_files):
     dfs = []
     for index, file in enumerate(d_files):
         df = pd.read_csv(DATA_DIR / file)
-        df["season"] = 2010 + int(index)
+        df["Season"] = 2010 + int(index)
         dfs.append(df)
 
     d_all = pd.concat(dfs, ignore_index=True)
@@ -31,7 +31,7 @@ d2_files = make_file_paths(2)
 d1_all = concat_csvs(d1_files)
 d2_all = concat_csvs(d2_files)
 
-keep_cols = ['HomeTeam', 'AwayTeam', 'Div', 'season', 'Date', 'FTR', 'FTHG', 'FTAG', 'HTHG', 'HTAG', 'HTR', 'HS', 'AS', 'HST', 'AST', 'HC', 'AC', 'HF', 'AF', 'HY', 'AY', 'HR', 'AR' ]
+keep_cols = ['HomeTeam', 'AwayTeam', 'Div', 'Season', 'Date', 'FTR', 'FTHG', 'FTAG', 'HTHG', 'HTAG', 'HTR', 'HS', 'AS', 'HST', 'AST', 'HC', 'AC', 'HF', 'AF', 'HY', 'AY', 'HR', 'AR' ]
 
 
 d1_all_filtered = d1_all[keep_cols]
