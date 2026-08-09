@@ -32,9 +32,34 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
         df['PointsFor'] = np.select(conditions, choices)
 
         return df
-    
+
+    def add_rolling(df: pd.DataFrame, feature: str, rolling_size: int, agg_func: str) -> pd.DataFrame:
+
+        new_col = f"{feature}Rolling{rolling_size}"
+
+        df[new_col] = df.groupby('Team')[feature].transform(lambda x: x.shift(1).rolling(rolling_size).agg(agg_func))
+
+        return df
+
+    df['GoalPerShot'] = df['GoalsFor'] / df['TeamShots']
+    df['GoalsFor/GoalsAgainst'] = df['GoalsFor'] / df['GoalsAgainst']
+    df = df.replace([np.inf, -np.inf], np.nan)
 
     df = add_points(df)
+    df = add_rolling(df, 'PointsFor', 5, 'sum')
+    df = add_rolling(df, 'TeamCorners', 5, 'mean')
+    df = add_rolling(df, 'TeamRed', 5, 'sum')
+    df = add_rolling(df, 'TeamYellow', 5, 'sum')
+    df = add_rolling(df, 'TeamShotsOnTarget', 5, 'mean')
+    df = add_rolling(df, 'TeamShots', 5, 'mean')
+    df = add_rolling(df, 'GoalsFor', 5, 'mean')
+    df = add_rolling(df, 'GoalsAgainst', 5, 'mean')
+    df = add_rolling(df, 'TeamFouls', 5, 'mean')
+
+    df = add_rolling(df, 'GoalPerShot', 5, 'mean')
+    df = df.drop(columns=['GoalPerShot'])
+    df = add_rolling(df, 'GoalsFor/GoalsAgainst', 5, 'mean')
+    df = df.drop(columns=['GoalsFor/GoalsAgainst'])
 
     return df
 
@@ -47,14 +72,11 @@ d2 = pd.read_csv(DATA_DIR / "d2_clean.csv")
 d1_big = rename_cols(d1)
 d2_big = rename_cols(d2)
 
-d1_big = add_feature(d1_big)
-d2_big = add_feature(d2_big)
-
-d1_big['Date'] = pd.to_datetime(d1_big['Date'], format='mixed', dayfirst=True)
+d1_big['Date'] = pd.to_datetime(d1_big['Date'], format='mixed', dayfirst=True)# convert Date to datetime
 d2_big['Date'] = pd.to_datetime(d2_big['Date'], format='mixed', dayfirst=True)
 
+d1_big = d1_big.set_index(['Team', 'Date']).sort_values(['Team', 'Date'])#add multiindexing
+d2_big = d2_big.set_index(['Team', 'Date']).sort_values(['Team', 'Date'])
 
-d1_big = d1_big.set_index(['Team', 'Date']).sort_index()
-d2_big = d2_big.set_index(['Team', 'Date']).sort_index()
-
-print(d1_big.head(20))
+d1_big = add_feature(d1_big)
+d2_big = add_feature(d2_big)
