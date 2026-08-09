@@ -50,5 +50,11 @@ d2_big = rename_cols(d2)
 d1_big = add_feature(d1_big)
 d2_big = add_feature(d2_big)
 
-d1_big = d1_big.set_index(['Team', 'Venue']).sort_index()
-d2_big = d2_big.set_index(['Team', 'Venue']).sort_index()
+d1_big['Date'] = pd.to_datetime(d1_big['Date'], format='mixed', dayfirst=True)
+d2_big['Date'] = pd.to_datetime(d2_big['Date'], format='mixed', dayfirst=True)
+
+
+d1_big = d1_big.set_index(['Team', 'Date']).sort_index()
+d2_big = d2_big.set_index(['Team', 'Date']).sort_index()
+
+print(d1_big.head(20))

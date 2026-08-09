@@ -7,7 +7,7 @@ Working on data preparation.
 ### To-Do: Feature Engineering
 
 - [X] Build long format (one row per team, home and away perspective separated)
-- [ ] Sort chronologically by `Date` per team
+- [X] Sort chronologically by `Date` per team
 - [ ] Compute rolling features (using `shift(1)` + `rolling(window=n)`)
 - [ ] Form (points from last 5 games)
 - [ ] Avg. goals scored / conceded
