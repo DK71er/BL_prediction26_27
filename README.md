@@ -4,6 +4,7 @@ ML model for predicting the 2026/27 Bundesliga season
 ## Status
 Finished data preparation. Working on building the model.
 
+
 ### To-Do: Feature Engineering
 
 - [X] Build long format (one row per team, home and away perspective separated)
@@ -17,8 +18,6 @@ Finished data preparation. Working on building the model.
 - [X] Merge D1 + D2 (with `Div` as context feature)
 - [X] Final NaN check (drop/handle first games per season with no rolling history)
 - [X] Save as `data/processed/features.csv`
-
-### To-Do: Modeling
 
 ### To-Do: Modeling
 
