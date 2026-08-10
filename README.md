@@ -13,7 +13,7 @@ Working on data preparation.
 - [X] Avg. goals scored / conceded
 - [X] Avg. shots / corners / fouls / cards (D1 throughout, D2 from 2017 onward)
 - [X] Table position feature (cumulative points before each matchday, per season)
-- [ ] Merge back into wide format (home rolling stats + away rolling stats per match)
-- [ ] Merge D1 + D2 (with `Div` as context feature)
-- [ ] Final NaN check (drop/handle first games per season with no rolling history)
-- [ ] Save as `data/processed/features.csv`
+- [X] Merge back into wide format (home rolling stats + away rolling stats per match)
+- [X] Merge D1 + D2 (with `Div` as context feature)
+- [X] Final NaN check (drop/handle first games per season with no rolling history)
+- [X] Save as `data/processed/features.csv`

@@ -48,7 +48,6 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
 
         return df
 
-    df['GoalPerShot'] = df['GoalsFor'] / df['TeamShots']
     df['GoalsFor/GoalsAgainst'] = df['GoalsFor'] / df['GoalsAgainst']
     df = df.replace([np.inf, -np.inf], np.nan)
 
@@ -63,10 +62,10 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
     df = add_rolling(df, 'GoalsAgainst', 5, 'mean')
     df = add_rolling(df, 'TeamFouls', 5, 'mean')
 
-    df = add_rolling(df, 'GoalPerShot', 5, 'mean')
-    df = df.drop(columns=['GoalPerShot'])
+    df['GoalPerShotRolling5'] = df['GoalsForRolling5'] / df['TeamShotsRolling5']
     df = add_rolling(df, 'GoalsFor/GoalsAgainst', 5, 'mean')
     df = df.drop(columns=['GoalsFor/GoalsAgainst'])
+
 
     df['PointsLastMatch'] = df.groupby('Team')['PointsFor'].transform(lambda x: x.shift(1))
     
@@ -92,3 +91,41 @@ d2_big = d2_big.set_index(['Team', 'Date']).sort_values(['Team', 'Date'])
 
 d1_big = add_feature(d1_big)
 d2_big = add_feature(d2_big)
+
+d1 = d1_big.reset_index()
+d2 = d2_big.reset_index()
+
+features = pd.concat([d1, d2], ignore_index=True)
+features = features.sort_values('Date').reset_index(drop=True)
+
+home = features[features['Venue'] == 'Home']
+away = features[features['Venue'] == 'Away']
+
+features = pd.merge(
+    home, away,
+    left_on=['Date', 'Team', 'Opponent'],
+    right_on=['Date', 'Opponent', 'Team'],
+    suffixes=('_Home', '_Away')
+)
+
+features['Season'] = features['Season_Home']
+features['Div'] = features['Div_Home']
+
+drop_cols = [ #dropping doubeled columns due to merge
+    'Season_Home', 'Season_Away', 'Div_Home', 'Div_Away',
+    'Venue_Home', 'Venue_Away',
+    'Opponent_Home', 'Opponent_Away',
+    'OpponentShots_Home', 'OpponentShots_Away',
+    'OpponentShotsOnTarget_Home', 'OpponentShotsOnTarget_Away',
+    'OpponentCorners_Home', 'OpponentCorners_Away',
+    'OpponentFouls_Home', 'OpponentFouls_Away',
+    'OpponentYellow_Home', 'OpponentYellow_Away',
+    'OpponentRed_Home', 'OpponentRed_Away',
+    'GoalsAgainst_Home', 'GoalsAgainst_Away',
+    'GoalsAgainstHT_Home', 'GoalsAgainstHT_Away',
+]
+features = features.drop(columns=drop_cols)
+
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+features.to_csv(PROCESSED_DIR / "features.csv", index=False)
+print(f"Saved df in {PROCESSED_DIR}!")
