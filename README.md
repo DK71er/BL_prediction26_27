@@ -2,7 +2,7 @@
 ML model for predicting the 2026/27 Bundesliga season
 
 ## Status
-Working on data preparation.
+Finished data preparation. Working on building the model.
 
 ### To-Do: Feature Engineering
 
@@ -17,3 +17,11 @@ Working on data preparation.
 - [X] Merge D1 + D2 (with `Div` as context feature)
 - [X] Final NaN check (drop/handle first games per season with no rolling history)
 - [X] Save as `data/processed/features.csv`
+
+### To-Do: Modeling
+
+- [ ] Define `FEATURE_COLS` allowlist (pre-match features only, no raw match stats like `GoalsFor_Home`/`Result_Home`/`TeamShots_Home` as X)
+- [ ] Time-based train/test split instead of random (e.g. seasons through 2023 = train, 2024 = val, 2025/26 = test)
+- [ ] Train baseline model (e.g. logistic regression or simple XGBoost)
+- [ ] Decide final NaN handling (drop vs. model-native, e.g. XGBoost handles NaN)
+- [ ] First evaluation vs. baseline (e.g. "always predict home win")
