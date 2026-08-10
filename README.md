@@ -20,8 +20,11 @@ Finished data preparation. Working on building the model.
 
 ### To-Do: Modeling
 
-- [ ] Define `FEATURE_COLS` allowlist (pre-match features only, no raw match stats like `GoalsFor_Home`/`Result_Home`/`TeamShots_Home` as X)
+### To-Do: Modeling
+
 - [ ] Time-based train/test split instead of random (e.g. seasons through 2023 = train, 2024 = val, 2025/26 = test)
-- [ ] Train baseline model (e.g. logistic regression or simple XGBoost)
-- [ ] Decide final NaN handling (drop vs. model-native, e.g. XGBoost handles NaN)
-- [ ] First evaluation vs. baseline (e.g. "always predict home win")
+- [ ] Baseline: Dixon-Coles model (Poisson regression on home/away goal expectancy, with time decay)
+- [ ] Define `FEATURE_COLS` allowlist (pre-match features only, no raw match stats as X) — needed for the ML step
+- [ ] ML model (XGBoost/Gradient Boosting on Elo, form, xG) — compare against Dixon-Coles baseline
+- [ ] Decide final NaN handling (drop vs. model-native)
+- [ ] Evaluation: does ML actually beat Dixon-Coles? (this comparison is the portfolio story)
