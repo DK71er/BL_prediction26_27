@@ -41,6 +41,13 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
 
         return df
 
+    def add_table(df: pd.DataFrame):
+        df['Matchday'] = df.groupby(['Team', 'Season']).cumcount() + 1
+        df['CumPoints'] = df.groupby(['Team', 'Season'])['PointsFor'].transform(lambda x: x.shift(1).cumsum())
+        df['TableRank'] = df.groupby(['Season', 'Matchday'])['CumPoints'].rank(method='min', ascending=False)
+
+        return df
+
     df['GoalPerShot'] = df['GoalsFor'] / df['TeamShots']
     df['GoalsFor/GoalsAgainst'] = df['GoalsFor'] / df['GoalsAgainst']
     df = df.replace([np.inf, -np.inf], np.nan)
@@ -60,6 +67,11 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop(columns=['GoalPerShot'])
     df = add_rolling(df, 'GoalsFor/GoalsAgainst', 5, 'mean')
     df = df.drop(columns=['GoalsFor/GoalsAgainst'])
+
+    df['PointsLastMatch'] = df.groupby('Team')['PointsFor'].transform(lambda x: x.shift(1))
+    
+
+    df = add_table(df)
 
     return df
 
