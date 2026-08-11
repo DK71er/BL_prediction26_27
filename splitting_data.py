@@ -12,6 +12,10 @@ def train_test_val_split(df: pd.DataFrame) -> pd.DataFrame:
 
         return x, y
 
+    cat_cols = df.select_dtypes(include=['object', 'string']).columns.tolist()
+    for col in cat_cols:
+            df[col] = df[col].astype('category')
+
     train_mask = df['Season'] < 2023
     val_mask = df['Season'] == 2023
     test_mask = df['Season'] > 2023
