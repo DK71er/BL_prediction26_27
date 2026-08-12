@@ -29,7 +29,7 @@ def train_test_val_split(df: pd.DataFrame) -> pd.DataFrame:
     Xtest, ytest = x_y_split(test_df)
 
     feature_cols_drop = ['Date', 'Result_Home', 'GoalsForHT_Home', 'HTResult_Home', 'TeamShots_Home', 'TeamShotsOnTarget_Home', 'TeamCorners_Home', 'TeamFouls_Home', 'TeamYellow_Home', 'TeamRed_Home', 'PointsFor_Home',
-                         'Result_Away', 'GoalsForHT_Away', 'HTResult_Away', 'TeamShots_Away', 'TeamShotsOnTarget_Away', 'TeamCorners_Away', 'TeamFouls_Away', 'TeamYellow_Away', 'TeamRed_Away', 'PointsFor_Away']
+                         'Result_Away', 'GoalsForHT_Away', 'HTResult_Away', 'TeamShots_Away', 'TeamShotsOnTarget_Away', 'TeamCorners_Away', 'TeamFouls_Away', 'TeamYellow_Away', 'TeamRed_Away', 'PointsFor_Away', 'Div']
     Xtrain = Xtrain.drop(columns=feature_cols_drop)
     Xval = Xval.drop(columns=feature_cols_drop)
     Xtest = Xtest.drop(columns=feature_cols_drop)
