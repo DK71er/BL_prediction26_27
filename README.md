@@ -25,6 +25,7 @@ Finished data preparation. Working on building the model.
 - [X] Define `FEATURE_COLS` allowlist (pre-match features only, no raw match stats as X) — needed for the ML step
 - [ ] Decide final NaN handling (drop vs. model-native)
 - [ ] ML model (XGBoost)
+- [ ] Optimize hyperparameters using CVSearch
 
 ### Extra:
 - [ ] Implement Dixon-Coles-Model
