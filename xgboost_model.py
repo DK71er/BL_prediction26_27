@@ -11,7 +11,8 @@ params_model = {'objective': 'count:poisson',
                 'n_estimators': 2000,
                 'max_depth': 4,
                 'learning_rate': 0.03,
-                'early_stopping_rounds': 50}
+                'early_stopping_rounds': 50,
+                'enable_categorical': True}
 
 print('Training model ...')
 model_home = XGBRegressor(**params_model)
