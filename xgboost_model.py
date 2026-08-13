@@ -5,6 +5,7 @@ from sklearn.metrics import root_mean_squared_error
 
 def eval_model():
     print('Evaluating model ...')
+    print()
 
     def featur_importances():
         imp_home = pd.Series(model_home.feature_importances_, index=Xtrain.columns).sort_values(ascending=False)
@@ -13,10 +14,19 @@ def eval_model():
         print(f'Feature-importance away-model: {imp_away}')
 
     def rmse_baseline_real():
-        baseline_pred = [ytrain['GoalsFor_Home'].mean()] * len(yval)
-        print(f"Basleine rmse: {root_mean_squared_error(yval['GoalsFor_Home'],baseline_pred)}")
-        print(f"Home-model rmse: {root_mean_squared_error(yval['GoalsFor_Home'], model_home.predict(Xval))}")
-        print(f"Away-model rmse: {root_mean_squared_error(yval['GoalsFor_Away'], model_away.predict(Xval))}")
+        baseline_home = root_mean_squared_error(yval['GoalsFor_Home'], ([ytrain['GoalsFor_Home'].mean()] * len(yval)))
+        rmse_home = root_mean_squared_error(yval['GoalsFor_Home'], model_home.predict(Xval))
+        baseline_away = root_mean_squared_error(yval['GoalsFor_Away'], ([ytrain['GoalsFor_Away'].mean()] * len(yval)))
+        rmse_away = root_mean_squared_error(yval['GoalsFor_Away'], model_away.predict(Xval))
+
+        print(f"Baseline home-model rmse: {baseline_home:.3f}")
+        print(f"Home-model rmse: {rmse_home:.3f}")
+        print(f"Home-model outperforms baseline (mean) by {(baseline_home - rmse_home) / baseline_home * 100:.1f}%!")
+        print()
+        print(f"Baseline away-model rmse: {baseline_away:.3f}")
+        print(f"Away-model rmse: {rmse_away:.3f}")
+        print(f"Away-model outperforms baseline (mean) by {(baseline_away - rmse_away) / baseline_away * 100:.1f}%!")
+        
 
     rmse_baseline_real()
 
