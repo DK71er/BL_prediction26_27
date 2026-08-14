@@ -23,9 +23,13 @@ Finished data preparation. Working on building the model.
 
 - [X] Time-based train/test split instead of random (e.g. seasons through 2023 = train, 2024 = val, 2025/26 = test)
 - [X] Define `FEATURE_COLS` allowlist (pre-match features only, no raw match stats as X) — needed for the ML step
-- [ ] Decide final NaN handling (drop vs. model-native)
-- [ ] ML model (XGBoost)
+- [X] ML model (XGBoost)
 - [ ] Optimize hyperparameters using CVSearch
+
+### Automatization
+
+- [ ] Read newest matchday in + put last matchday to train
+- [ ] Evaluate last matchday and post results on Github
 
 ### Extra:
 - [ ] Implement Dixon-Coles-Model
