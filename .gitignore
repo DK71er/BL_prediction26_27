@@ -2,3 +2,4 @@
 __pycache__/
 *.pyc
 legend_csvs.txt
+fe_improve_log.csv

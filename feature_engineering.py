@@ -48,6 +48,10 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
 
         return df
 
+    def add_elo(df: pd.DataFrame) -> pd.DataFrame:
+        df['Elo'] = df.groupby('Matchday')['CumPoints'].rank(method='min', ascending=False)
+        return df
+
     df['GoalsFor/GoalsAgainst'] = df['GoalsFor'] / df['GoalsAgainst']
     df = df.replace([np.inf, -np.inf], np.nan)
 
@@ -61,6 +65,7 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
     df = add_rolling(df, 'GoalsFor', 5, 'mean')
     df = add_rolling(df, 'GoalsAgainst', 5, 'mean')
     df = add_rolling(df, 'TeamFouls', 5, 'mean')
+    
 
     df['GoalPerShotRolling5'] = df['GoalsForRolling5'] / df['TeamShotsRolling5']
     df = add_rolling(df, 'GoalsFor/GoalsAgainst', 5, 'mean')
@@ -71,6 +76,8 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
     
 
     df = add_table(df)
+    df = add_elo(df)
+    df = add_rolling(df, 'Elo', 30, 'mean')
 
     return df
 
@@ -110,6 +117,7 @@ features = pd.merge(
 
 features['Season'] = features['Season_Home']
 features['Div'] = features['Div_Home']
+features['TableRankDiff'] = abs(features['TableRank_Home'] - features['TableRank_Away'])
 
 drop_cols = [ #dropping doubeled columns due to merge
     'Season_Home', 'Season_Away', 'Div_Home', 'Div_Away',
@@ -126,6 +134,16 @@ drop_cols = [ #dropping doubeled columns due to merge
 ]
 features = features.drop(columns=drop_cols)
 
-PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-features.to_csv(PROCESSED_DIR / "features.csv", index=False)
-print(f"Saved df in {PROCESSED_DIR}!")
+if __name__ == '__main__':
+    #print(features['Matchday_Home'].unique())
+    #mask = features['Matchday_Home'] == 1
+    #temp = features[mask]
+    #print(temp['TableRank_Home'].isna().sum())
+    #print(features.groupby(['Season', 'Matchday_Home'])['TableRank_Home'].mean())
+    # TableRank of Matchday 34 in Season 24 == TableRank of Matchday 1 in Season 25
+
+    debug = True
+    if debug:
+        PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+        features.to_csv(PROCESSED_DIR / "features.csv", index=False)
+        print(f"Saved df in {PROCESSED_DIR}!")

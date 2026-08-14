@@ -29,7 +29,7 @@ def eval_model():
         
 
     rmse_baseline_real()
-
+    featur_importances()
 
 
 
