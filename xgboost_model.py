@@ -29,20 +29,35 @@ def eval_model():
         
 
     rmse_baseline_real()
-    featur_importances()
+    
 
+params_model_home = {'objective': 'count:poisson',
+                'n_estimators': 275,
+                'max_depth': 6,
+                'learning_rate': 0.01,
+                'subsample': 0.872,
+                'colsample_bytree': 0.605,
+                'min_child_weight': 1,
+                'gamma': 2.54,
+                'reg_alpha': 0.202,
+                'reg_lambda': 8.35,
+                'enable_categorical': True}
 
-
-params_model = {'objective': 'count:poisson',
-                'n_estimators': 2000,
-                'max_depth': 4,
-                'learning_rate': 0.03,
-                'early_stopping_rounds': 50,
+params_model_away = {'objective': 'count:poisson',
+                'n_estimators': 274,
+                'max_depth': 3,
+                'learning_rate': 0.034,
+                'subsample': 0.624,
+                'colsample_bytree': 0.622,
+                'min_child_weight': 2,
+                'gamma': 0.0133,
+                'reg_alpha': 0.449,
+                'reg_lambda': 2.53,
                 'enable_categorical': True}
 
 print('Training model ...')
-model_home = XGBRegressor(**params_model)
-model_away = XGBRegressor(**params_model)
+model_home = XGBRegressor(**params_model_home)
+model_away = XGBRegressor(**params_model_away)
 
 model_home.fit(Xtrain, ytrain['GoalsFor_Home'],
                 eval_set=[(Xval, yval['GoalsFor_Home'])],

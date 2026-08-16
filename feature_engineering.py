@@ -135,14 +135,15 @@ drop_cols = [ #dropping doubeled columns due to merge
 features = features.drop(columns=drop_cols)
 
 if __name__ == '__main__':
-    #print(features['Matchday_Home'].unique())
-    #mask = features['Matchday_Home'] == 1
-    #temp = features[mask]
-    #print(temp['TableRank_Home'].isna().sum())
     #print(features.groupby(['Season', 'Matchday_Home'])['TableRank_Home'].mean())
-    # TableRank of Matchday 34 in Season 24 == TableRank of Matchday 1 in Season 25
+    #mask = (features['Team_Home'] == 'Bayern Munich' or features['Team_Home'] == 'Augsburg') & (features['Team_Away'] == 'Bayern Munich' or features['Team_Away'] == 'Augsburg')
+    #mask = (features['Team_Home'] == 'Bayern Munich') & (features['Team_Away'] == 'Freiburg')
+    #mask2 = ((features['Team_Home'] == 'Bayern Munich') | (features['Team_Home'] == 'Freiburg')) & ((features['Team_Away'] == 'Freiburg') | (features['Team_Away'] == 'Bayern Munich'))
+    
+    #print(len(features[mask]))
+    #print(len(features[mask2]))
 
-    debug = True
+    debug = False
     if debug:
         PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
         features.to_csv(PROCESSED_DIR / "features.csv", index=False)
