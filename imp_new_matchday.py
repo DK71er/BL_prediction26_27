@@ -19,8 +19,8 @@ def create_csv_from_json(JSON_DIR: str):
     for i in range(1, 35):
         with open(JSON_DIR / f"matchday{i}.json", "r") as f:
             data = json.load(f)
-        for j in range(9):
-            df.loc[j + 9 * (i-1)] = [data[j]["team1"]["teamName"]] + [data[j]["team2"]["teamName"]] + [data[j]["matchDateTime"]] + [i]
+        for j in range(len(data)):
+            df.loc[j + len(data) * (i-1)] = [data[j]["team1"]["teamName"]] + [data[j]["team2"]["teamName"]] + [data[j]["matchDateTime"]] + [i]
 
     df['Date'] = pd.to_datetime(df["Date"]).dt.date
     df = df.set_index('Date').sort_values('Date')
