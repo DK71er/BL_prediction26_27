@@ -52,6 +52,13 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
         df['Elo'] = df.groupby('Matchday')['CumPoints'].rank(method='min', ascending=False)
         return df
 
+    def add_h2h(df: pd.DataFrame) -> pd.DataFrame:
+        
+        df['MatchupKey'] = sorted(df.index.get_level_values('Team') + df['Opponent'])
+        df['H2H'] = df.groupby(['MatchupKey', 'Team'])['PointsFor'].transform(lambda x: x.shift(1).cumsum())
+
+        return df
+
     df['GoalsFor/GoalsAgainst'] = df['GoalsFor'] / df['GoalsAgainst']
     df = df.replace([np.inf, -np.inf], np.nan)
 
@@ -78,6 +85,7 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
     df = add_table(df)
     df = add_elo(df)
     df = add_rolling(df, 'Elo', 30, 'mean')
+    df = add_h2h(df)
 
     return df
 
@@ -130,19 +138,14 @@ drop_cols = [ #dropping doubeled columns due to merge
     'OpponentYellow_Home', 'OpponentYellow_Away',
     'OpponentRed_Home', 'OpponentRed_Away',
     'GoalsAgainst_Home', 'GoalsAgainst_Away',
-    'GoalsAgainstHT_Home', 'GoalsAgainstHT_Away',
+    'GoalsAgainstHT_Home', 'GoalsAgainstHT_Away'
 ]
 features = features.drop(columns=drop_cols)
 
 if __name__ == '__main__':
-    #print(features.groupby(['Season', 'Matchday_Home'])['TableRank_Home'].mean())
-    #mask = (features['Team_Home'] == 'Bayern Munich' or features['Team_Home'] == 'Augsburg') & (features['Team_Away'] == 'Bayern Munich' or features['Team_Away'] == 'Augsburg')
-    #mask = (features['Team_Home'] == 'Bayern Munich') & (features['Team_Away'] == 'Freiburg')
-    #mask2 = ((features['Team_Home'] == 'Bayern Munich') | (features['Team_Home'] == 'Freiburg')) & ((features['Team_Away'] == 'Freiburg') | (features['Team_Away'] == 'Bayern Munich'))
-    
-    #print(len(features[mask]))
-    #print(len(features[mask2]))
 
+    print(features[['Team_Home', 'Team_Away', 'MatchupKey_Home', 'H2H_Home']].head(50))
+    
     debug = False
     if debug:
         PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
