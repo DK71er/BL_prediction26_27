@@ -4,3 +4,4 @@ __pycache__/
 legend_csvs.txt
 fe_improve_log.csv
 data/json/
+data/new_matchday_csvs
