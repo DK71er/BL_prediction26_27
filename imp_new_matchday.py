@@ -15,14 +15,15 @@ def get_json(base_url: str, season: int, JSON_DIR: str):
 
 
 def create_csv_from_json(JSON_DIR: str):
-    df = pd.DataFrame(columns=('Team', 'Opponent', 'Date', 'Matchday'))
+    df = pd.DataFrame(columns=('Team_Home', 'Team_Away', 'Date', 'Matchday_Home', 'Matchday_Away'))
     for i in range(1, 35):
         with open(JSON_DIR / f"matchday{i}.json", "r") as f:
             data = json.load(f)
         for j in range(len(data)):
-            df.loc[j + len(data) * (i-1)] = [data[j]["team1"]["teamName"]] + [data[j]["team2"]["teamName"]] + [data[j]["matchDateTime"]] + [i]
+            df.loc[j + len(data) * (i-1)] = [data[j]["team1"]["teamName"]] + [data[j]["team2"]["teamName"]] + [data[j]["matchDateTime"]] + [i] + [i]
 
     df['Date'] = pd.to_datetime(df["Date"]).dt.date
+    df['Season'] = season
     df = df.set_index('Date').sort_values('Date')
     df.to_csv(JSON_DIR/ "new_matchday.csv")
     print(f"Saved csvs in {JSON_DIR}!")

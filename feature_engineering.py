@@ -53,9 +53,19 @@ def add_feature(df: pd.DataFrame) -> pd.DataFrame:
         return df
 
     def add_h2h(df: pd.DataFrame) -> pd.DataFrame:
-        
-        df['MatchupKey'] = sorted(df.index.get_level_values('Team') + df['Opponent'])
-        df['H2H'] = df.groupby(['MatchupKey', 'Team'])['PointsFor'].transform(lambda x: x.shift(1).cumsum())
+
+        df['MatchupKey'] = np.where(
+            df.index.get_level_values('Team') < df['Opponent'],
+            df.index.get_level_values('Team') + '_' + df['Opponent'],
+            df['Opponent'] + '_' + df.index.get_level_values('Team')
+        )
+
+        df['H2H'] = (
+            df.groupby(['MatchupKey', 'Team'])['PointsFor']
+            .transform(lambda x: x.shift(1).cumsum())
+        )
+
+        df = df.drop(columns='MatchupKey')
 
         return df
 
@@ -144,9 +154,9 @@ features = features.drop(columns=drop_cols)
 
 if __name__ == '__main__':
 
-    print(features[['Team_Home', 'Team_Away', 'MatchupKey_Home', 'H2H_Home']].head(50))
+    #print(features[['Team_Home', 'Team_Away', 'MatchupKey_Home', 'H2H_Home']].head(50))
     
-    debug = False
+    debug = True
     if debug:
         PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
         features.to_csv(PROCESSED_DIR / "features.csv", index=False)
