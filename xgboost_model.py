@@ -68,5 +68,5 @@ model_away.fit(Xtrain, ytrain['GoalsFor_Away'],
                 eval_set=[(Xval, yval['GoalsFor_Away'])],
                 verbose=0
                 )
-
-eval_model()
+if __name__ == "__main__":
+    eval_model()

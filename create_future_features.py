@@ -82,8 +82,10 @@ features_all = build_features(d1_future, d2_future)
 future_features = features_all[features_all['Date'].isin(next_matchday['Date'])]
 
 if __name__ == '__main__':
-    rolling_cols = [c for c in future_features.columns if 'Rolling' in c]
-    print(future_features[future_features['Team_Home'].isin(['Paderborn', 'Elversberg']) |
-                       future_features['Team_Away'].isin(['Paderborn', 'Schalke 04', 'Elversberg'])]
-      [['Team_Home', 'Team_Away'] + rolling_cols])
-    print(future_features[['Date', 'Team_Home', 'Team_Away']])
+    #rolling_cols = [c for c in future_features.columns if 'Rolling' in c]
+    #print(future_features[future_features['Team_Home'].isin(['Paderborn', 'Elversberg']) |
+    #                   future_features['Team_Away'].isin(['Paderborn', 'Schalke 04', 'Elversberg'])]
+    #  [['Team_Home', 'Team_Away'] + rolling_cols])
+    #print(future_features[['Date', 'Team_Home', 'Team_Away']])
+    future_features.to_csv(DATA_DIR/ "future_features_md1.csv", index=False)
+    print(f'csv saved in {DATA_DIR}!')
