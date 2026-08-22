@@ -29,13 +29,13 @@ def create_csv_from_json(JSON_DIR: str):
     print(f"Saved csvs in {JSON_DIR}!")
 
 
+if __name__ == "__main__":
+    PROJECT_ROOT = Path(__file__).resolve().parent
+    JSON_DIR = PROJECT_ROOT / "data" / "json" 
+    JSON_DIR.mkdir(parents=True, exist_ok=True)
 
-PROJECT_ROOT = Path(__file__).resolve().parent
-JSON_DIR = PROJECT_ROOT / "data" / "json" 
-JSON_DIR.mkdir(parents=True, exist_ok=True)
 
+    season = 2026
+    base_url = "https://api.openligadb.de/getmatchdata/bl1"
 
-season = 2026
-base_url = "https://api.openligadb.de/getmatchdata/bl1"
-
-create_csv_from_json(JSON_DIR)
+    create_csv_from_json(JSON_DIR)

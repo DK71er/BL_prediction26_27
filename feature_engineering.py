@@ -153,10 +153,11 @@ drop_cols = [ #dropping doubeled columns due to merge
 features = features.drop(columns=drop_cols)
 
 if __name__ == '__main__':
-
-    #print(features[['Team_Home', 'Team_Away', 'MatchupKey_Home', 'H2H_Home']].head(50))
+    mask = (features['Season'] == 2025) & (features['Div'] == 'D1')
+    temp = features[mask]
+    print(temp['Team_Home'].unique())
     
-    debug = True
+    debug = False
     if debug:
         PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
         features.to_csv(PROCESSED_DIR / "features.csv", index=False)
