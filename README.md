@@ -4,7 +4,7 @@ ML model for predicting the 2026/27 Bundesliga season
 # Prediction of current matches:
 
 <!-- TIPPS_START -->
-| Date | Hometeam | Homegoals Pred | Awaygoals Pred | Awayteam |
+| Date | Home | Home Goals (Pred) | Away Goals (Pred) | Away |
 |---|---|---|---|---|
 | 2026-08-28 | **Bayern Munich** | 2.75 | 1.12 | **Stuttgart** |
 | 2026-08-29 | **Union Berlin** | 1.71 | 1.19 | **Ein Frankfurt** |
