@@ -62,8 +62,8 @@ Finished data preparation. Working on building the model.
 
 ### Automatization
 
-- [ ] Read newest matchday in + put last matchday to train
-- [ ] Evaluate last matchday and post results on Github
+- [X] Read newest matchday in + put last matchday to train
+- [] Evaluate last matchday and post results on Github
 
 ### Extra:
 - [ ] Implement Dixon-Coles-Model
