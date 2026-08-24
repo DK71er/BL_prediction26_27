@@ -1,7 +1,7 @@
 # BL Tipper
 ML model for predicting the 2026/27 Bundesliga season
 
-# Prediction of current matches:
+## Prediction of current matches:
 
 <!-- TIPPS_START -->
 ### Raw predictions
