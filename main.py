@@ -66,4 +66,5 @@ results = future_features[['Date', 'Team_Home', 'Team_Away']].copy()
 results['Pred_GoalsFor_Home'] = pred_home.round(2)
 results['Pred_GoalsFor_Away'] = pred_away.round(2)
 
-print(results.to_string(index=False))
+if __name__ == "__main__":
+    print(results.to_string(index=False))

@@ -1,6 +1,22 @@
 # BL Tipper
 ML model for predicting the 2026/27 Bundesliga season
 
+# Prediction of current matches:
+
+<!-- TIPPS_START -->
+| Datum | Heim | Heimtore Pred | Auswärtstore Pred | Auswärts |
+|---|---|---|---|---|
+| 2026-08-28 | **Bayern Munich** | 2.75 | 1.12 | **Stuttgart** |
+| 2026-08-29 | **Union Berlin** | 1.71 | 1.19 | **Ein Frankfurt** |
+| 2026-08-29 | **Mainz** | 1.73 | 1.05 | **Paderborn** |
+| 2026-08-29 | **Dortmund** | 2.35 | 1.01 | **Hamburg** |
+| 2026-08-29 | **FC Koln** | 1.69 | 1.66 | **Hoffenheim** |
+| 2026-08-29 | **RB Leipzig** | 2.16 | 0.94 | **M'gladbach** |
+| 2026-08-29 | **Elversberg** | 1.59 | 1.91 | **Leverkusen** |
+| 2026-08-30 | **Freiburg** | 1.74 | 1.36 | **Werder Bremen** |
+| 2026-08-30 | **Augsburg** | 1.56 | 1.45 | **Schalke 04** |
+<!-- TIPPS_END -->
+
 ## Status
 Finished data preparation. Working on building the model.
 
