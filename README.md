@@ -4,6 +4,8 @@ ML model for predicting the 2026/27 Bundesliga season
 # Prediction of current matches:
 
 <!-- TIPPS_START -->
+### Raw predictions
+
 | Date | Home | Home Goals (Pred) | Away Goals (Pred) | Away |
 |---|---|---|---|---|
 | 2026-08-28 | **Bayern Munich** | 2.75 | 1.12 | **Stuttgart** |
@@ -15,6 +17,22 @@ ML model for predicting the 2026/27 Bundesliga season
 | 2026-08-29 | **Elversberg** | 1.59 | 1.91 | **Leverkusen** |
 | 2026-08-30 | **Freiburg** | 1.74 | 1.36 | **Werder Bremen** |
 | 2026-08-30 | **Augsburg** | 1.56 | 1.45 | **Schalke 04** |
+
+### Tipp
+
+Rounding rule: if the predicted goal difference is below 0.2, the match is called a draw (both scores rounded to the average). Otherwise each predicted score is rounded independently. This is a simple heuristic, not a calibrated model — a probability-based approach (Poisson score matrix) is a possible future improvement.
+
+| Date | Home | Tipp | Away |
+|---|---|---|---|
+| 2026-08-28 | **Bayern Munich** | 3:1 | **Stuttgart** |
+| 2026-08-29 | **Union Berlin** | 2:1 | **Ein Frankfurt** |
+| 2026-08-29 | **Mainz** | 2:1 | **Paderborn** |
+| 2026-08-29 | **Dortmund** | 2:1 | **Hamburg** |
+| 2026-08-29 | **FC Koln** | 2:2 | **Hoffenheim** |
+| 2026-08-29 | **RB Leipzig** | 2:1 | **M'gladbach** |
+| 2026-08-29 | **Elversberg** | 2:2 | **Leverkusen** |
+| 2026-08-30 | **Freiburg** | 2:1 | **Werder Bremen** |
+| 2026-08-30 | **Augsburg** | 2:2 | **Schalke 04** |
 <!-- TIPPS_END -->
 
 ## Status
