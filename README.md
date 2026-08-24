@@ -67,4 +67,4 @@ Finished data preparation. Working on building the model.
 
 ### Extra:
 - [ ] Implement Dixon-Coles-Model
-- [ ] Evaluation: does ML actually beat Dixon-Coles? 
+- [ ] Evaluation: does ML actually beat Dixon-Coles?

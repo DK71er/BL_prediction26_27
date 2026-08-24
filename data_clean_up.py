@@ -42,5 +42,6 @@ d1_all_filtered = d1_all_filtered.dropna(subset=["HS"]) #filter the one game wit
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
-d1_all_filtered.to_csv(PROCESSED_DIR / "d1_clean.csv", index=False)
-d2_all_filtered.to_csv(PROCESSED_DIR / "d2_clean.csv", index=False)
+if __name__ == "__main__":
+    d1_all_filtered.to_csv(PROCESSED_DIR / "d1_clean.csv", index=False)
+    d2_all_filtered.to_csv(PROCESSED_DIR / "d2_clean.csv", index=False)
